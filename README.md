@@ -28,10 +28,13 @@ yarn deploy
 To learn more about thirdweb and Next.js, take a look at the following resources:
 
 - [thirdweb React Documentation](https://docs.thirdweb.com/react) - learn about our React SDK.
-- [thirdweb TypeScript Documentation](https://docs.thirdweb.com/typescript) - learn about our JavaScript/TypeScript SDK.
+- [thirdweb TypeScript Documentation](https://docs.thirdweb.com/typescript) - learn about our JavaScript
+/TypeScript SDK.
 - [thirdweb Portal](https://docs.thirdweb.com) - check our guides and development resources.
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Templates](https://thirdweb.com/templates)
+
+<img width="1168" alt="Screenshot 2024-01-26 at 12 55 53 PM" src="https://github.com/hadeebataj/evolve_pokemon_app/assets/61531844/a33bab80-9ae9-4149-a462-89bf83d880b6">
 
 You can check out [the thirdweb GitHub organization](https://github.com/thirdweb-dev) - your feedback and contributions are welcome!
 

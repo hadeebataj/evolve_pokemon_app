@@ -1,9 +1,23 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
+import {
+  ConnectWallet,
+  ThirdwebNftMedia,
+  Web3Button,
+  useAddress,
+  useContract,
+  useOwnedNFTs,
+} from "@thirdweb-dev/react";
 import styles from "../styles/Home.module.css";
-import Image from "next/image";
 import { NextPage } from "next";
 
 const Home: NextPage = () => {
+  const { contract } = useContract(
+    "0x0B9D34297D118Bc3C44bDF9f926850972b71102D"
+  );
+
+  const address = useAddress();
+
+  const { data: nfts } = useOwnedNFTs(contract, address);
+
   return (
     <main className={styles.main}>
       <div className={styles.container}>
@@ -16,90 +30,36 @@ const Home: NextPage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                thirdweb.
+                Evolving Pokemon NFT
               </a>
             </span>
           </h1>
 
-          <p className={styles.description}>
-            Get started by configuring your desired network in{" "}
-            <code className={styles.code}>src/index.js</code>, then modify the{" "}
-            <code className={styles.code}>src/App.js</code> file!
-          </p>
-
           <div className={styles.connect}>
-            <ConnectWallet
-              dropdownPosition={{
-                side: "bottom",
-                align: "center",
-              }}
-            />
+            <ConnectWallet />
+            <hr />
+            {nfts?.map((nft) => (
+              <div key={nft.metadata.id.toString()}>
+                <ThirdwebNftMedia metadata={nft.metadata} />
+                {nft.metadata.name}
+              </div>
+            ))}
+            <hr />
+            <Web3Button
+              contractAddress="0x0B9D34297D118Bc3C44bDF9f926850972b71102D"
+              action={(contract) => contract?.erc1155.claim(0, 1)}
+              type="button"
+            >
+              Claim a Charmander
+            </Web3Button>
+            <hr />
+            <Web3Button
+              contractAddress="0x0B9D34297D118Bc3C44bDF9f926850972b71102D"
+              action={(contract) => contract.call("evolve")}
+            >
+              Evolve
+            </Web3Button>
           </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://portal.thirdweb.com/"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/portal-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText1}>Portal ➜</h2>
-              <p>
-                Guides, references, and resources that will help you build with
-                thirdweb.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/dashboard"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/dashboard-preview.png"
-              alt="Placeholder preview of starter"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText2}>Dashboard ➜</h2>
-              <p>
-                Deploy, configure, and manage your smart contracts from the
-                dashboard.
-              </p>
-            </div>
-          </a>
-
-          <a
-            href="https://thirdweb.com/templates"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              src="/images/templates-preview.png"
-              alt="Placeholder preview of templates"
-              width={300}
-              height={200}
-            />
-            <div className={styles.cardText}>
-              <h2 className={styles.gradientText3}>Templates ➜</h2>
-              <p>
-                Discover and clone template projects showcasing thirdweb
-                features.
-              </p>
-            </div>
-          </a>
         </div>
       </div>
     </main>

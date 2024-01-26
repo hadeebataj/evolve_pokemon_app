@@ -26,7 +26,7 @@ const Home: NextPage = () => {
             Welcome to{" "}
             <span className={styles.gradientText0}>
               <a
-                href="https://thirdweb.com/"
+                href="https://github.com/hadeebataj/evolve_pokemon_app/tree/main"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -37,28 +37,37 @@ const Home: NextPage = () => {
 
           <div className={styles.connect}>
             <ConnectWallet />
-            <hr />
-            {nfts?.map((nft) => (
-              <div key={nft.metadata.id.toString()}>
-                <ThirdwebNftMedia metadata={nft.metadata} />
-                {nft.metadata.name}
+            <div className={styles.container}>
+              <div className={styles.grid}>
+                {nfts?.map((nft) => (
+                  <div key={nft.metadata.id.toString()} className={styles.card}>
+                    <ThirdwebNftMedia metadata={nft.metadata} />
+                    <div className={styles.cardText}>
+                      <h2 className={styles.gradientText1}>
+                        {nft.metadata.name}
+                      </h2>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-            <hr />
-            <Web3Button
-              contractAddress="0x0B9D34297D118Bc3C44bDF9f926850972b71102D"
-              action={(contract) => contract?.erc1155.claim(0, 1)}
-              type="button"
-            >
-              Claim a Charmander
-            </Web3Button>
-            <hr />
-            <Web3Button
-              contractAddress="0x0B9D34297D118Bc3C44bDF9f926850972b71102D"
-              action={(contract) => contract.call("evolve")}
-            >
-              Evolve
-            </Web3Button>
+            </div>
+
+            <div className={styles.grid} hidden={address ? false : true}>
+              <Web3Button
+                contractAddress="0x0B9D34297D118Bc3C44bDF9f926850972b71102D"
+                action={(contract) => contract?.erc1155.claim(0, 1)}
+                type="button"
+              >
+                Claim a Charmander
+              </Web3Button>
+
+              <Web3Button
+                contractAddress="0x0B9D34297D118Bc3C44bDF9f926850972b71102D"
+                action={(contract) => contract.call("evolve")}
+              >
+                Evolve
+              </Web3Button>
+            </div>
           </div>
         </div>
       </div>

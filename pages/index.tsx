@@ -9,6 +9,15 @@ import {
 import styles from "../styles/Home.module.css";
 import { NextPage } from "next";
 
+/**
+ * Home page component.
+ *
+ * Renders the main home page UI.
+ * Connects to the user's wallet.
+ * Fetches the user's NFTs from the contract.
+ * Displays the user's NFTs.
+ * Has buttons to claim a Charmander NFT and evolve an NFT.
+ */
 const Home: NextPage = () => {
   const { contract } = useContract(
     "0x0B9D34297D118Bc3C44bDF9f926850972b71102D"
